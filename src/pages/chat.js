@@ -2,7 +2,8 @@ import Navbar from "./components/navbar.js";
 import React from "react";
 import io from "socket.io-client"
 
-const socket = io.connect("localhost:8080");
+const socket = io.connect("http://localhost:8080");
+// socket.emit("new_user", 'rrr');
 
 console.log(socket);
 
@@ -36,7 +37,6 @@ class Chat extends React.Component {
         messages: [],
         message: ""
       }
-      console.log(this.socket);
 
       while (!this.pseudo) {
         this.pseudo = prompt("Votre pseudo");
@@ -80,7 +80,7 @@ class Chat extends React.Component {
 
         if (msg) {
           this.addMessage(pseudo, msg);
-          socket.emit("message", {pseudo: pseudo, message:msg});
+          socket.emit("message", {pseudo: pseudo, message: msg});
         }
     }
 

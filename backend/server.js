@@ -6,11 +6,13 @@ server = http.createServer(app);
 
 io = Socket.listen(server)
 
-io.on("connection", (socket) => {
+let ct = 1;
 
+io.sockets.on("connection", (socket) => {
     // new user event
     socket.on("new_user", (pseudo) => {
-        console.log(1);
+        ct++;
+
         socket.pseudo = ent.encode(pseudo);
         socket.broadcast.emit("new_user", pseudo)
     });
@@ -25,6 +27,8 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {
         socket.broadcast.emit("user_disconnect", socket.pseudo)
     })
+
+    console.log(ct);
 })
 
 
