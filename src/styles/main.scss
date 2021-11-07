@@ -2,33 +2,51 @@
 @mixin btn-outline() {
 
 }
-.btn {
-  $btn-color: #111;
 
-  background: $btn-color;
+$color-dark: #343A40;
+#home-principal {
+  background-image: url("../assets/images/background2.jpg");
+  background-size: cover;
+}
+
+.dark-bg {
+  background-color: $color-dark;
+
+  &.transparent {
+    $red: red($color-dark);
+    $green: green($color-dark);
+    $blue: blue($color-dark);
+
+    background-color: rgba($red, $green, $blue, .5);
+
+  }
+}
+
+.btn-pers {
+  background: $color-dark;
   color: white;
-  border: 1px solid $btn-color;
+  border: 1px solid $color-dark;
   border-radius: 5px;
   padding: 10px;
 
   &:hover {
-    color: $btn-color;
-    border-color: $btn-color;
+    color: $color-dark;
+    border-color: $color-dark;
     background: transparent;
   }
 
   &.outline {
-    color: $btn-color;
+    color: $color-dark;
     background: transparent;
     &:hover {
       color: white;
-      background: $btn-color;
+      background: $color-dark;
     }
   }
 }
 
 
-.full-screen, 
+.full-screen,
 .full-screen-100 {
     height: 100vh;
 }

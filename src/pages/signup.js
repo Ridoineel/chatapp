@@ -17,11 +17,11 @@ function Signup() {
         </div>
 
         <div className="form-group">
-          <input type="password" name="password-conf" className="form-control" placeholder="Retype password" />
+          <input type="password" name="password-conf" className="form-control" placeholder="Password again" />
           <small className="form-text text-muted">Just Test...</small>
         </div>
 
-        <input type="submit" value="Validate" className="btn btn-secondary col"/>
+        <input type="submit" value="Signup" className="btn-pers col"/>
       </form>
     </div>
   )

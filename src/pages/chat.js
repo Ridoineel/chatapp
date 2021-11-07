@@ -1,19 +1,26 @@
 import Navbar from "./components/navbar.js";
 import React from "react";
+import io from "socket.io-client"
+
+const socket = io.connect("localhost:8080");
+
+console.log(socket);
 
 function MessageBox(props) {
+  let cur_userPseudo = props.userPseudo;
 
-  let messages = props.messages.map(({user, msg}, index) => {
+  let messages = props.messages.map(({pseudo: pseudo, message: msg}, index) => {
+    let style = (cur_userPseudo === pseudo) ? "btn btn-success" : "btn btn-secondary";
+
     return (
       <p className="my-3" key={index}>
-        <strong className="msg__user">{user}</strong>
-        {message}
+          <span className={style}>{pseudo}</span> {msg}
       </p>
     )
   });
 
   return (
-    <div className="border p-3" id="chat_panel">
+    <div className="border p-3" style={{minHeight: "70vh"}}>
       {messages}
     </div>
   )
@@ -23,66 +30,83 @@ function MessageBox(props) {
 class Chat extends React.Component {
     constructor(props) {
       super(props);
+      this.pseudo = ""
+
       this.state = {
         messages: [],
+        message: ""
       }
+      console.log(this.socket);
+
+      while (!this.pseudo) {
+        this.pseudo = prompt("Votre pseudo");
+      }
+
+      document.title = `${this.pseudo} | ChatApp`;
+
+      socket.emit("new_user", this.pseudo);
+
+      // When one user disconnect
+      // user disconnect event
+
+      // this.socket.on("user_disconnect", (this.pseudo) => {
+      //
+      // })
+      //
+      // this.socket.on("new_user", (this.pseudo) => {
+      //     // For new user
+      // })
+
+      socket.on('message', (sender) => {
+          this.addMessage(sender.pseudo, sender.message); // "btn btn-warning"
+      })
+
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this)
     }
 
     // let form = document.querySelector("#chat--form");
     // let chat_input = document.querySelector("#chat--input");
 
-    addMessage(user, msg) {
-        let msgs = this.state.messages.slice();
-        msgs.push({user: user, message: msg});
-
-        this.setState({messages: msgs})
-
+    handleChange(e) {
+      this.setState({message: e.target.value});
     }
 
-    sendMessage() {
-        let socket = socket.io.connect("http://localhost:8080");
-        let pseudo = prompt("Votre pseudo svp: ");
+    handleSubmit(e) {
+        e.preventDefault();
 
-        while (!pseudo) {
-            let pseudo = prompt("Votre pseudo svp: ");
+        let pseudo = this.pseudo;
+        let msg = e.target.message.value;
+
+        if (msg) {
+          this.addMessage(pseudo, msg);
+          socket.emit("message", {pseudo: pseudo, message:msg});
         }
-        document.title = pseudo + " | " + document.title;
+    }
 
-        socket.emit("new_user", pseudo);
+    addMessage(pseudo, msg) {
+        let msg_list = this.state.messages.slice();
+        msg_list.push({pseudo: pseudo, message: msg});
 
-        socket.on("new_user", (pseudo) => {
-            // For new user
-        })
+        this.setState({messages: msg_list});
 
-        socket.on('message', (sender) => {
-            this.addMessage(sender.pseudo, sender.message, "btn btn-warning");
-        })
-
-        // When one user disconnect
-        // user disconnect event
-        socket.on("user_disconnect", (pseudo) => {
-
-        })
+        window.scrollTo(0, document.body.scrollHeight)
     }
 
     render () {
       return (
           <React.Fragment>
             <Navbar />
+            <div className="container my-3 pb-3">
+                <MessageBox messages={this.state.messages} userPseudo={this.pseudo}/>
 
-            <div className="container border full-screen" style={{height: '100vh'}}>
-                <h1>ChatApp</h1>
-
-                <form id="chat--form">
+                <form id="chat--form" onSubmit={this.handleSubmit}>
                     <div className="form-group col-6 container">
-                        <input type="text" id="chat--input" className="my-3 form-control" placeholder="Votre message ..." />
-                        <input type="submit" onClick={() => this.sendMessage()} className="btn btn-secondary container my-3"  id="pk" />
+                        <input type="text" name="message" value={this.state.message} onChange={this.handleChange} className="my-3 form-control" placeholder="Votre message ..." />
+                        <input type="submit" value="Send" className="btn-pers container my-3"  id="pk" />
                     </div>
                 </form>
 
-                <MessageBox messages={this.state.messages}/>
-
-                <br />
             </div>
           </React.Fragment>
       );

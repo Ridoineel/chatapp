@@ -6,7 +6,11 @@ import Navbar from "./components/navbar.js";
 
 function Home() {
   return (
-    <Navbar />
+    <div id="home-principal" style={{height: "100vh"}}>
+      <Navbar />
+    </div>
+
+
   );
 }
 
