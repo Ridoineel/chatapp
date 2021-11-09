@@ -1,9 +1,9 @@
 const http = require("http");
-const app = require("./app");
+const App = require("./App");
 const ent = require("ent");
 const Socket = require("socket.io");
 
-server = http.createServer(app);
+server = http.createServer(App);
 io = Socket(server, { serveClient: false, cors:{origin:"*"} })
 
 io.sockets.on("connection", (socket) => {
