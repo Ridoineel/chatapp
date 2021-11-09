@@ -15,6 +15,6 @@
     "ent": "^2.2.0",
     "express": "^4.17.1",
     "server-static": "^2.0.5",
-    "socket.io-client": "^4.3.2"
+    "socket.io": "^4.3.2"
   }
 }
