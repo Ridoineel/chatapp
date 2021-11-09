@@ -10,7 +10,11 @@ io.sockets.on("connection", (socket) => {
     // new user event
     socket.on("newUser", (pseudo) => {
         socket.pseudo = ent.encode(pseudo);
+<<<<<<< HEAD
         socket.broadcast.emit("newUser", pseudo);
+=======
+        socket.broadcast.emit("newUser", pseudo)
+>>>>>>> 0b9b0cca650b59ec62392907a84f9d0e2deff219
     });
 
     // new message event
