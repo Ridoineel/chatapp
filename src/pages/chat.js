@@ -3,7 +3,6 @@ import React from "react";
 import io from "socket.io-client"
 
 const socket = io.connect("http://localhost:8080");
-// socket.emit("new_user", 'rrr');
 
 console.log(socket);
 
@@ -65,9 +64,6 @@ class Chat extends React.Component {
       this.handleChange = this.handleChange.bind(this)
     }
 
-    // let form = document.querySelector("#chat--form");
-    // let chat_input = document.querySelector("#chat--input");
-
     handleChange(e) {
       this.setState({message: e.target.value});
     }
@@ -80,7 +76,7 @@ class Chat extends React.Component {
 
         if (msg) {
           this.addMessage(pseudo, msg);
-          socket.emit("message", {pseudo: pseudo, message: msg});
+          socket.emit("message", msg);
         }
     }
 
