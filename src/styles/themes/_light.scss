@@ -1,0 +1,16 @@
+// color-headings: #24292E;
+// color-text: #959DA5;
+// bg: #FFFFFF;
+
+/*
+color-headings: #171515
+bg-panel:#e8eaea
+*/
+
+html,
+html[theme=light] {
+  --color-headings: #171515;
+  --color-text: #959DA5;
+  --bg: #FFFFFF;
+  --bg-panel: #e8eaea
+}

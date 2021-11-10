@@ -1,0 +1,28 @@
+@import "../utils/variables";
+@import "../utils/mixins";
+
+#home-page {
+    background-image: url("../../assets/images/background2.jpg");
+    background-size: cover;
+    height: 100vh;
+
+    .container {
+        transition: all 4s 1s;
+    }
+
+    h1 {
+      color: $dark-color-headings;
+      font-size: 5rem;
+      font-family: $font-family-text;
+    }
+
+    button {
+      padding: 1rem;
+      border-radius: 20px;
+      font-size: 1.5rem;
+    }
+}
+
+.bg-transparent {
+    @include bg-transparent();
+}

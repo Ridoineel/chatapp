@@ -1,0 +1,29 @@
+@import "./variables";
+
+@mixin bg-transparent($color: $color-dark) {
+    $red: red($color);
+    $green: green($color);
+    $blue: blue($color);
+
+    background-color: rgba($red, $green, $blue, 0.2) !important;
+
+    &--20 {
+      background-color: rgba($red, $green, $blue, 0.8) !important;
+    }
+
+    &--40 {
+      background-color: rgba($red, $green, $blue, 0.6) !important;
+    }
+
+    &--60 {
+      background-color: rgba($red, $green, $blue, 0.4) !important;
+    }
+
+    &--80 {
+      background-color: rgba($red, $green, $blue, 0.2) !important;
+    }
+
+    &--100 {
+      background-color: rgba($red, $green, $blue, 0) !important;
+    }
+}

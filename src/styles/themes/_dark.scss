@@ -1,0 +1,15 @@
+// color-headings: #FEFFFF;
+// color-text: #707A84;
+// bg1: #1B1F24;
+
+/*
+bg: #171515
+bg-panel: #1d1a1a
+*/
+
+html[theme=dark] {
+  --color-headings: #FEFFFF;
+  --color-text: #707A84;
+  --bg: #171515;
+  --bg-panel: #1d1a1a;
+}
