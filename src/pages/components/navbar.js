@@ -3,7 +3,7 @@
 function Navbar() {
   return (
     <div>
-      <div className="dark-bg transparent">
+      <div className="bg-transparent--60">
         <nav className="navbar navbar-dark navbar-expand">
           <a href="/" className="navbar-brand font-weight-bold">Chatapp</a>
           <ul className="navbar-nav">
