@@ -10,11 +10,16 @@ function MessageBox(props) {
   let cur_userPseudo = props.userPseudo;
 
   let messages = props.messages.map(({pseudo: pseudo, message: msg}, index) => {
-    let style = (cur_userPseudo === pseudo) ? "btn btn-success" : "btn btn-secondary";
+    // let style = (cur_userPseudo === pseudo) ? "btn btn-success" : "btn btn-secondary";
+
+    let pseudoRender =  null;
+    if (cur_userPseudo !== pseudo) {
+        pseudoRender = (<span className="btn btn-success">{pseudo}</span>);
+    }
 
     return (
       <p className="my-3" key={index}>
-          <span className={style}>{pseudo}</span> {msg}
+          {pseudoRender} {msg}
       </p>
     )
   });
